@@ -1,0 +1,2936 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#130e18">
+<title>Jaoriche — Credit Profile</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Pattaya&display=swap" rel="stylesheet">
+
+<style>
+:root{
+ --bg1:#130e18;
+ --bg2:#241629;
+ --surface:#211827;
+ --surface2:#2d2033;
+ --text:#f8eaf5;
+ --muted:#bba8bd;
+ --border:#684b6d;
+ --accent:#e9a9cf;
+ --accent2:#a879c8;
+ --btnText:#211323;
+ --profile:#38263e;
+ --initial:#f5c6e4;
+ --cardShadow:0 12px 35px #0007;
+ --heart:#f28bb9;
+ --radius:20px;
+ --font:'Prompt',sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ margin:0;
+ min-height:100vh;
+ font-family:var(--font);
+ color:var(--text);
+ background:linear-gradient(145deg,var(--bg1),var(--bg2));
+ background-attachment:fixed;
+ overflow-x:hidden;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+img{max-width:100%}
+.hidden{display:none!important}
+a{color:inherit;text-decoration:none}
+button:focus-visible,input:focus-visible,textarea:focus-visible{
+ outline:2px solid var(--accent);
+ outline-offset:3px;
+}
+.container{
+ width:min(900px,calc(100% - 26px));
+ margin:auto;
+ padding-bottom:110px;
+}
+.topbar{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:18px 2px;
+}
+.brand{
+ font-family:'Pattaya',cursive;
+ font-size:25px;
+ color:var(--accent);
+}
+.admin-open{
+ border:1px solid var(--border);
+ color:var(--text);
+ background:var(--surface);
+ border-radius:50px;
+ padding:9px 15px;
+ font-size:12px;
+}
+
+/* Ticker ย้ายขึ้นไปอยู่บนสุดของหน้า */
+.ticker{
+ overflow:hidden;
+ white-space:nowrap;
+ margin:0;
+ border:0;
+ border-bottom:1px solid var(--border);
+ border-radius:0;
+ background:var(--surface);
+ padding:11px 0;
+ box-shadow:var(--cardShadow);
+}
+.ticker-track{
+ display:inline-flex;
+ min-width:max-content;
+ animation:marquee 24s linear infinite;
+}
+.ticker span{
+ padding-right:45px;
+ color:var(--accent);
+ font-size:13px;
+}
+@keyframes marquee{
+ from{transform:translateX(0)}
+ to{transform:translateX(-50%)}
+}
+
+.banner{
+ position:relative;
+ height:245px;
+ border-radius:25px;
+ overflow:hidden;
+ background:linear-gradient(120deg,#37213c,#a66c99,#39243e);
+ box-shadow:var(--cardShadow);
+}
+.banner img{
+ width:100%;height:100%;
+ object-fit:cover;
+ display:block;
+}
+.banner:after{
+ content:"";
+ position:absolute;inset:0;
+ background:linear-gradient(0deg,#130e1880,transparent 65%);
+ pointer-events:none;
+}
+.profile-area{
+ position:relative;
+ margin:-65px 20px 0;
+ z-index:2;
+ display:flex;
+ align-items:flex-end;
+ gap:16px;
+}
+.avatar-wrap{
+ position:relative;
+ flex-shrink:0;
+ width:125px;height:125px;
+ border-radius:50%;
+ padding:5px;
+ background:var(--surface);
+ border:2px solid var(--accent);
+ box-shadow:var(--cardShadow);
+}
+.avatar-wrap>img:first-child{
+ width:100%;height:100%;
+ border-radius:50%;
+ object-fit:cover;
+ display:block;
+}
+.avatar-bundle{
+ position:absolute;
+ inset:-2px;
+ width:calc(100% + 4px);
+ height:calc(100% + 4px);
+ object-fit:contain!important;
+ pointer-events:none;
+ z-index:3;
+}
+.shop-meta{padding-bottom:10px;min-width:0}
+.shop-name{
+ font-size:24px;
+ font-weight:700;
+ overflow-wrap:anywhere;
+}
+.verified{
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ background:#4d9df4;
+ color:white;
+ border-radius:50%;
+ width:18px;height:18px;
+ font-size:12px;
+ vertical-align:middle;
+}
+.shop-desc{
+ color:var(--muted);
+ font-size:13px;
+ line-height:1.8;
+ margin-top:5px;
+ white-space:pre-wrap;
+}
+.socials{
+ display:flex;
+ flex-wrap:wrap;
+ gap:9px;
+ margin:18px 0 28px;
+}
+.social-btn{
+ padding:9px 15px;
+ border-radius:50px;
+ background:var(--surface2);
+ border:1px solid var(--border);
+ font-size:12px;
+ color:var(--text);
+ transition:.2s;
+}
+.social-btn:hover{transform:translateY(-2px);border-color:var(--accent)}
+.section{margin:28px 0}
+.section-heading{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ margin-bottom:15px;
+}
+.section-heading h2{margin:0;font-size:17px}
+.section-heading small{color:var(--muted);font-size:11px}
+.story-list{
+ display:flex;
+ gap:17px;
+ overflow-x:auto;
+ padding:5px 2px 14px;
+ scrollbar-width:thin;
+}
+.story{
+ flex:0 0 76px;
+ text-align:center;
+ cursor:pointer;
+}
+.story-cover{
+ width:72px;height:72px;
+ border-radius:50%;
+ padding:3px;
+ border:2px solid var(--accent);
+ background:var(--surface2);
+}
+.story-cover img{
+ width:100%;height:100%;
+ border-radius:50%;
+ object-fit:cover;
+}
+.story-name{
+ display:block;
+ margin-top:7px;
+ font-size:11px;
+ overflow:hidden;
+ text-overflow:ellipsis;
+ white-space:nowrap;
+}
+
+/* การ์ดคะแนนและจำนวนรีวิวรวมเป็นการ์ดเดียว */
+.rating-summary{
+ display:flex;
+ align-items:stretch;
+ padding:13px 17px;
+ border:1px solid var(--border);
+ border-radius:var(--radius);
+ background:var(--surface);
+ box-shadow:var(--cardShadow);
+ text-align:center;
+}
+.rating-half{
+ flex:1;
+ min-width:0;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+ padding:3px 8px;
+}
+.rating-half+ .rating-half{
+ border-left:1px solid var(--border);
+}
+.rating-number{
+ font-size:29px;
+ font-weight:700;
+ color:var(--accent);
+ line-height:1.25;
+}
+.heart-line{
+ color:var(--heart);
+ letter-spacing:4px;
+ font-size:17px;
+}
+.rating-summary p{
+ color:var(--muted);
+ font-size:11px;
+ margin:4px 0 0;
+}
+.review-count-number{
+ font-size:25px;
+ font-weight:700;
+ color:var(--accent);
+ line-height:1.35;
+}
+.review-grid{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:15px;
+}
+.review-card{
+ position:relative;
+ overflow:hidden;
+ background:var(--surface);
+ border:1px solid var(--border);
+ border-radius:19px;
+ padding:17px;
+ box-shadow:var(--cardShadow);
+ min-width:0;
+}
+.review-corner{
+ position:absolute;
+ width:52px;
+ height:52px;
+ object-fit:contain;
+ pointer-events:none;
+ z-index:1;
+}
+.review-corner.tl{top:0;left:0}
+.review-corner.tr{top:0;right:0}
+.review-corner.bl{bottom:0;left:0}
+.review-corner.br{bottom:0;right:0}
+.review-user{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ position:relative;
+ z-index:2;
+}
+.review-avatar{
+ position:relative;
+ width:43px;height:43px;
+ border-radius:50%;
+ flex-shrink:0;
+ background:var(--profile);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ color:var(--initial);
+ font-weight:700;
+ overflow:visible;
+}
+.review-avatar>img:first-child{
+ width:100%;height:100%;
+ border-radius:50%;
+ object-fit:cover;
+ display:block;
+ overflow:hidden;
+}
+.review-avatar-frame{
+ position:absolute;
+ inset:-1px;
+ width:calc(100% + 2px);
+ height:calc(100% + 2px);
+ object-fit:contain;
+ pointer-events:none;
+ z-index:3;
+}
+.review-user-name{
+ font-size:13px;
+ font-weight:600;
+ overflow-wrap:anywhere;
+}
+.review-date{
+ font-size:10px;
+ color:var(--muted);
+ margin-top:3px;
+}
+.review-hearts{
+ color:var(--heart);
+ font-size:14px;
+ margin-top:12px;
+ letter-spacing:3px;
+}
+.review-text{
+ font-size:12px;
+ line-height:1.9;
+ white-space:pre-wrap;
+ overflow-wrap:anywhere;
+ margin:12px 0;
+ position:relative;
+ z-index:2;
+}
+.review-images{
+ display:flex;
+ flex-wrap:wrap;
+ gap:7px;
+}
+.review-images img{
+ width:100%;
+ max-height:240px;
+ object-fit:contain;
+ border-radius:10px;
+ background:#0002;
+}
+/* ปุ่มจัดการรีวิวจะปรากฏเฉพาะในหน้าแอดมิน */
+.review-empty{
+ grid-column:1/-1;
+ text-align:center;
+ color:var(--muted);
+ padding:35px 15px;
+ border:1px dashed var(--border);
+ border-radius:18px;
+ font-size:13px;
+}
+.bottom-actions{
+ position:fixed;
+ z-index:30;
+ bottom:max(15px,env(safe-area-inset-bottom));
+ left:50%;
+ transform:translateX(-50%);
+ display:flex;
+ align-items:center;
+ gap:10px;
+}
+.write-review{
+ border:0;
+ border-radius:50px;
+ padding:14px 23px;
+ background:linear-gradient(110deg,var(--accent),var(--accent2));
+ color:var(--btnText);
+ font-weight:700;
+ font-size:13px;
+ box-shadow:0 8px 25px #0007;
+ white-space:nowrap;
+}
+.vinyl-btn{
+ width:53px;height:53px;
+ border-radius:50%;
+ border:1px solid var(--border);
+ color:var(--accent);
+ background:var(--surface);
+ box-shadow:var(--cardShadow);
+ font-size:24px;
+}
+.vinyl-btn.playing{animation:spin 4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.music-popup{
+ position:fixed;
+ z-index:29;
+ bottom:90px;
+ left:50%;
+ transform:translateX(-50%);
+ width:min(330px,calc(100% - 30px));
+ background:var(--surface);
+ border:1px solid var(--border);
+ border-radius:19px;
+ padding:15px;
+ box-shadow:var(--cardShadow);
+}
+.music-popup iframe{
+ width:100%;
+ height:150px;
+ border:0;
+ border-radius:10px;
+ margin-top:10px;
+}
+.music-head{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ font-size:13px;
+}
+.music-close{
+ background:none;border:0;color:var(--text);font-size:20px;
+}
+.modal-backdrop{
+ position:fixed;
+ inset:0;
+ z-index:80;
+ background:#000b;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:15px;
+ overflow-y:auto;
+}
+.modal{
+ width:min(490px,100%);
+ max-height:90vh;
+ overflow:auto;
+ border-radius:22px;
+ padding:21px;
+ background:var(--surface);
+ border:1px solid var(--border);
+ box-shadow:var(--cardShadow);
+}
+.modal h2{font-size:18px;margin:0 0 17px}
+.field{margin:12px 0}
+.field label{
+ display:block;
+ font-size:12px;
+ margin-bottom:6px;
+ color:var(--muted);
+}
+.field input,.field textarea,.field select{
+ width:100%;
+ padding:11px 12px;
+ color:var(--text);
+ background:var(--bg1);
+ border:1px solid var(--border);
+ border-radius:11px;
+ outline:none;
+ font-size:13px;
+}
+.field textarea{min-height:95px;resize:vertical}
+.field input[type=file]{font-size:11px}
+.modal-actions{display:flex;gap:9px;margin-top:18px}
+.primary-btn,.secondary-btn,.danger-btn{
+ border:0;border-radius:11px;padding:11px 16px;font-size:12px;
+}
+.primary-btn{
+ background:linear-gradient(110deg,var(--accent),var(--accent2));
+ color:var(--btnText);font-weight:700;flex:1;
+}
+.secondary-btn{background:var(--surface2);color:var(--text)}
+.danger-btn{background:#7e3049;color:white}
+.heart-picker{display:flex;gap:8px;font-size:30px}
+.heart-picker button{
+ border:0;background:none;color:#695363;font-size:30px;padding:0;
+}
+.heart-picker button.active{color:var(--heart)}
+.admin-panel{width:min(760px,100%)}
+.admin-tabs{
+ display:flex;
+ gap:7px;
+ overflow-x:auto;
+ padding:3px 0 13px;
+}
+.admin-tab{
+ flex-shrink:0;
+ padding:9px 13px;
+ border-radius:10px;
+ border:1px solid var(--border);
+ background:var(--bg1);
+ color:var(--text);
+ font-size:11px;
+}
+.admin-tab.active{background:var(--accent);color:var(--btnText)}
+.admin-content{padding:5px 0}
+.admin-content h3{font-size:15px}
+.admin-content p{font-size:11px;color:var(--muted)}
+.admin-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.admin-actions button{
+ border:1px solid var(--border);
+ background:var(--surface2);
+ color:var(--text);
+ border-radius:9px;
+ padding:9px 12px;
+ font-size:11px;
+}
+.admin-list-item{
+ display:flex;align-items:center;gap:10px;
+ padding:10px;
+ background:var(--bg1);
+ border:1px solid var(--border);
+ border-radius:12px;
+ margin:8px 0;
+}
+.admin-list-item img{
+ width:42px;height:42px;object-fit:cover;border-radius:9px;
+}
+.admin-list-item .item-info{flex:1;min-width:0;font-size:12px}
+.admin-list-item button{
+ background:var(--surface2);
+ border:1px solid var(--border);
+ color:var(--text);
+ padding:7px 9px;
+ border-radius:8px;
+ font-size:10px;
+}
+.color-grid{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:10px;
+}
+.color-item{
+ background:var(--bg1);
+ padding:10px;
+ border-radius:12px;
+ border:1px solid var(--border);
+}
+.color-item label{font-size:11px;display:block;margin-bottom:5px}
+.color-item input{width:100%;min-width:0}
+.theme-grid{
+ display:grid;
+ grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:9px;
+}
+.theme-choice{
+ border:1px solid var(--border);
+ border-radius:12px;
+ padding:8px;
+ background:var(--bg1);
+ color:var(--text);
+ text-align:left;
+ font-size:10px;
+}
+.theme-swatches{display:flex;gap:4px;margin-bottom:6px}
+.theme-swatches i{height:25px;flex:1;border-radius:5px}
+
+/* Story แบบ Facebook พร้อมพื้นหลัง Liquid Glass */
+.story-viewer{
+ position:fixed;
+ inset:0;
+ z-index:100;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:20px;
+ background:rgba(10,7,14,.62);
+ backdrop-filter:blur(22px) saturate(160%);
+ -webkit-backdrop-filter:blur(22px) saturate(160%);
+}
+.story-glass{
+ position:relative;
+ width:min(520px,100%);
+ height:min(850px,calc(100dvh - 35px));
+ border:1px solid #ffffff35;
+ border-radius:25px;
+ overflow:hidden;
+ background:linear-gradient(145deg,#ffffff20,#ffffff08);
+ box-shadow:0 20px 70px #0009,inset 0 1px #ffffff30;
+ backdrop-filter:blur(28px);
+ -webkit-backdrop-filter:blur(28px);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+}
+.story-viewer img{
+ max-width:100%;
+ max-height:100%;
+ width:100%;
+ height:100%;
+ object-fit:contain;
+}
+.story-viewer-close{
+ position:absolute;
+ top:17px;
+ right:17px;
+ z-index:5;
+ background:#17101d88;
+ border:1px solid #ffffff55;
+ color:white;
+ border-radius:50%;
+ width:39px;
+ height:39px;
+ font-size:24px;
+ line-height:1;
+}
+.story-viewer-title{
+ position:absolute;
+ top:25px;
+ left:20px;
+ right:65px;
+ z-index:4;
+ color:white;
+ font-size:13px;
+ text-shadow:0 1px 5px #000;
+ overflow:hidden;
+ text-overflow:ellipsis;
+ white-space:nowrap;
+}
+.story-progress{
+ position:absolute;
+ z-index:4;
+ top:12px;
+ left:12px;
+ right:65px;
+ display:flex;
+ gap:4px;
+}
+.story-progress span{
+ height:3px;
+ flex:1;
+ border-radius:5px;
+ background:#ffffff55;
+ overflow:hidden;
+}
+.story-progress span i{
+ display:block;
+ height:100%;
+ width:0;
+ background:white;
+}
+.story-progress span.done i{width:100%}
+.story-progress span.active i{
+ animation:storyProgress 7s linear forwards;
+}
+@keyframes storyProgress{to{width:100%}}
+.story-nav{
+ position:absolute;
+ top:65px;
+ bottom:0;
+ width:35%;
+ z-index:3;
+ border:0;
+ background:transparent;
+}
+.story-nav.prev{left:0}
+.story-nav.next{right:0}
+.toast{
+ position:fixed;
+ z-index:150;
+ left:50%;bottom:90px;
+ transform:translateX(-50%);
+ background:var(--surface2);
+ color:var(--text);
+ border:1px solid var(--border);
+ border-radius:30px;
+ padding:10px 17px;
+ font-size:12px;
+ box-shadow:var(--cardShadow);
+}
+.footer{
+ text-align:center;
+ color:var(--muted);
+ font-size:11px;
+ padding:35px 0 15px;
+}
+@media(max-width:600px){
+ .container{width:calc(100% - 20px)}
+ .banner{height:190px;border-radius:19px}
+ .profile-area{margin:-48px 12px 0;gap:11px}
+ .avatar-wrap{width:100px;height:100px}
+ .shop-name{font-size:19px}
+ .shop-desc{font-size:11px}
+ .review-grid{grid-template-columns:1fr}
+ .review-card{padding:15px}
+ .bottom-actions{gap:7px}
+ .write-review{padding:13px 18px;font-size:12px}
+ .vinyl-btn{width:48px;height:48px}
+ .theme-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .rating-summary{padding:11px 8px}
+ .rating-number{font-size:26px}
+ .review-count-number{font-size:23px}
+ .story-glass{height:calc(100dvh - 24px);border-radius:18px}
+}
+</style>
+</head>
+<body>
+
+<!-- แถบข้อความเลื่อนอยู่บนสุดของเว็บไซต์ -->
+<div class="ticker" id="tickerBox">
+ <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<div class="container">
+ <header class="topbar">
+  <div class="brand">♡ <span id="brandTitle">Credit Profile</span></div>
+  <button class="admin-open" onclick="openAdminLogin()">♛ Admin Login</button>
+ </header>
+
+ <section class="banner" id="bannerBox">
+  <img id="bannerImg" alt="Shop Banner" class="hidden">
+ </section>
+
+ <section class="profile-area">
+  <div class="avatar-wrap">
+   <img id="shopAvatar" alt="Shop Avatar">
+   <img id="shopBundle" class="avatar-bundle hidden" alt="">
+  </div>
+  <div class="shop-meta">
+   <div class="shop-name">
+    <span id="shopName">Jaoriche Credit Profile</span>
+    <span class="verified" id="verifiedBadge">✓</span>
+   </div>
+   <div class="shop-desc" id="shopDesc">Welcome to my little shop ♡</div>
+  </div>
+ </section>
+
+ <nav class="socials" id="socialLinks"></nav>
+
+ <section class="section" id="storySection">
+  <div class="section-heading">
+   <h2>♡ Story Highlights</h2>
+   <small>Our memories</small>
+  </div>
+  <div class="story-list" id="storyList"></div>
+ </section>
+
+ <section class="section">
+  <div class="section-heading">
+   <h2>♡ Customer Reviews</h2>
+  </div>
+  <div class="rating-summary">
+   <div class="rating-half">
+    <div class="rating-number" id="averageRating">0.0</div>
+    <div class="heart-line" id="averageHearts">♡♡♡♡♡</div>
+    <p>Average Rating</p>
+   </div>
+   <div class="rating-half">
+    <div class="review-count-number" id="reviewCount">0</div>
+    <p>Customer Reviews</p>
+   </div>
+  </div>
+ </section>
+
+ <section class="section">
+  <div class="review-grid" id="reviewGrid"></div>
+ </section>
+
+ <footer class="footer" id="footerText">
+  Made with love ♡ Thank you for visiting
+ </footer>
+</div>
+
+<div class="bottom-actions">
+ <button class="vinyl-btn" id="vinylButton" onclick="toggleMusicPopup()">♫</button>
+ <button class="write-review" onclick="openReviewModal()">✎ Write a Review ♡</button>
+</div>
+
+<div class="music-popup hidden" id="musicPopup">
+ <div class="music-head">
+  <span>♫ Now Playing</span>
+  <button class="music-close" onclick="closeMusicPopup()">×</button>
+ </div>
+ <div id="musicPlayer">
+  <p style="font-size:11px;color:var(--muted)">ยังไม่ได้ตั้งค่าเพลง</p>
+ </div>
+</div>
+
+<div class="toast hidden" id="toast"></div>
+
+<div class="modal-backdrop hidden" id="loginModal">
+ <div class="modal">
+  <h2>♛ Admin Login</h2>
+  <div class="field">
+   <label>Admin Password</label>
+   <input type="password" id="adminPassword" placeholder="Enter password">
+  </div>
+  <div class="modal-actions">
+   <button class="secondary-btn" onclick="closeModal('loginModal')">Cancel</button>
+   <button class="primary-btn" onclick="loginAdmin()">Login ♡</button>
+  </div>
+ </div>
+</div>
+
+<div class="modal-backdrop hidden" id="reviewModal">
+ <div class="modal">
+  <h2>♡ Write a Review</h2>
+  <div class="field">
+   <label>Your Name</label>
+   <input id="reviewName" maxlength="40" placeholder="Your name">
+  </div>
+  <div class="field">
+   <label>Profile Picture</label>
+   <input type="file" id="reviewAvatar" accept="image/*">
+  </div>
+  <div class="field">
+   <label>Your Rating</label>
+   <div class="heart-picker" id="heartPicker">
+    <button type="button" data-rating="1">♡</button>
+    <button type="button" data-rating="2">♡</button>
+    <button type="button" data-rating="3">♡</button>
+    <button type="button" data-rating="4">♡</button>
+    <button type="button" data-rating="5">♡</button>
+   </div>
+  </div>
+  <div class="field">
+   <label>Your Review</label>
+   <textarea id="reviewMessage" maxlength="500" placeholder="Write something lovely..."></textarea>
+  </div>
+  <div class="field">
+   <label>Attach Images (up to 4)</label>
+   <input type="file" id="reviewPhotos" accept="image/*" multiple>
+  </div>
+  <div class="modal-actions">
+   <button class="secondary-btn" onclick="closeModal('reviewModal')">Cancel</button>
+   <button class="primary-btn" onclick="submitReview()">Submit Review ♡</button>
+  </div>
+ </div>
+</div>
+
+<!-- Facebook-style Story Viewer -->
+<div class="story-viewer hidden" id="storyViewer">
+ <div class="story-glass">
+  <div class="story-progress" id="storyProgress"></div>
+  <div class="story-viewer-title" id="storyViewerTitle"></div>
+  <button class="story-viewer-close" onclick="closeStoryViewer()">×</button>
+  <button class="story-nav prev" onclick="previousStoryImage()" aria-label="Previous story"></button>
+  <img id="storyViewerImage" alt="Story">
+  <button class="story-nav next" onclick="nextStoryImage()" aria-label="Next story"></button>
+ </div>
+</div>
+
+<!-- Popup สำหรับแก้ไขไฮไลท์แต่ละรายการ -->
+<div class="modal-backdrop hidden" id="storyEditModal">
+ <div class="modal">
+  <h2>♡ Edit Highlight</h2>
+  <div class="field">
+   <label>Highlight Title</label>
+   <input id="storyEditTitle" maxlength="60">
+  </div>
+  <div class="field">
+   <label>Cover Image</label>
+   <img id="storyEditCoverPreview" alt="Cover preview" style="width:85px;height:85px;object-fit:cover;border-radius:12px;display:block;margin-bottom:8px">
+   <input type="file" id="storyEditCover" accept="image/*">
+  </div>
+  <div class="field">
+   <label>Add More Story Images</label>
+   <input type="file" id="storyEditAddImages" accept="image/*" multiple>
+  </div>
+  <div class="field">
+   <label>Existing Images — เลือกรูปที่ต้องการลบ</label>
+   <div id="storyEditExistingImages"></div>
+  </div>
+  <div class="modal-actions">
+   <button class="secondary-btn" onclick="closeModal('storyEditModal')">Cancel</button>
+   <button class="primary-btn" onclick="saveStoryEdit()">Save Changes ♡</button>
+  </div>
+ </div>
+</div>
+
+  <div class="modal-backdrop hidden" id="adminModal">
+ <div class="modal admin-panel">
+  <div class="section-heading">
+   <h2>♛ Admin Dashboard</h2>
+   <button class="secondary-btn" onclick="logoutAdmin()">Logout</button>
+  </div>
+  <div class="admin-tabs" id="adminTabs">
+   <button class="admin-tab active" data-tab="profile">Profile</button>
+   <button class="admin-tab" data-tab="stories">Stories</button>
+   <button class="admin-tab" data-tab="contacts">Contacts</button>
+   <button class="admin-tab" data-tab="reviews">Reviews</button>
+   <button class="admin-tab" data-tab="decor">Decorations</button>
+   <button class="admin-tab" data-tab="music">Music</button>
+   <button class="admin-tab" data-tab="colors">Colors & Themes</button>
+   <button class="admin-tab" data-tab="backup">Backup</button>
+  </div>
+  <div class="admin-content" id="adminContent"></div>
+ </div>
+</div>
+
+<script>
+  // ==========================================
+// DATABASE & MAIN FUNCTIONS
+// ==========================================
+
+const ADMIN_PASSWORD = "JR1234";
+const DB_NAME = "JaoricheCreditDB";
+const DB_STORE = "websiteData";
+
+let db = null;
+let isAdmin = false;
+let selectedRating = 5;
+let currentMusicOpen = false;
+
+let activeStory = null;
+let activeStoryImage = 0;
+let storyTimer = null;
+let editingStoryIndex = null;
+
+const placeholderAvatar =
+"data:image/svg+xml;charset=UTF-8,"+
+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#38263e"/><text x="100" y="125" text-anchor="middle" font-size="100" fill="#e9a9cf">♡</text></svg>`);
+
+const defaultData = {
+ profile:{
+  pageTitle:"Credit Profile",
+  name:"Jaoriche Credit Profile",
+  description:"Welcome to my little shop ♡\nThank you for visiting!",
+  banner:"",
+  avatar:"",
+  bundle:"",
+  verified:true,
+  ticker:"♡ Welcome to our shop ♡ Thank you for trusting us ♡",
+  footer:"Made with love ♡ Thank you for visiting"
+ },
+ contacts:[],
+ stories:[],
+ reviews:[],
+ music:{
+  url:"",
+  title:"Our Music ♡"
+ },
+ decor:{
+  corners:{
+   tl:"",tr:"",bl:"",br:""
+  },
+  cornerSize:52
+ },
+ colors:{
+  bg1:"#130e18",
+  bg2:"#241629",
+  surface:"#211827",
+  surface2:"#2d2033",
+  text:"#f8eaf5",
+  muted:"#bba8bd",
+  border:"#684b6d",
+  accent:"#e9a9cf",
+  accent2:"#a879c8",
+  btnText:"#211323",
+  profile:"#38263e",
+  initial:"#f5c6e4",
+  cardShadow:"#000000",
+  heart:"#f28bb9"
+ }
+};
+
+let data = structuredClone(defaultData);
+
+// IndexedDB
+function openDatabase(){
+ return new Promise((resolve,reject)=>{
+  const request=indexedDB.open(DB_NAME,1);
+
+  request.onupgradeneeded=()=>{
+   const database=request.result;
+   if(!database.objectStoreNames.contains(DB_STORE)){
+    database.createObjectStore(DB_STORE);
+   }
+  };
+
+  request.onsuccess=()=>{
+   db=request.result;
+   resolve(db);
+  };
+
+  request.onerror=()=>reject(request.error);
+ });
+}
+
+function dbSave(value){
+ return new Promise((resolve,reject)=>{
+  if(!db)return reject("Database not ready");
+  const tx=db.transaction(DB_STORE,"readwrite");
+  tx.objectStore(DB_STORE).put(value,"main");
+  tx.oncomplete=()=>resolve(true);
+  tx.onerror=()=>reject(tx.error);
+ });
+}
+
+function dbLoad(){
+ return new Promise((resolve,reject)=>{
+  if(!db)return reject("Database not ready");
+  const tx=db.transaction(DB_STORE,"readonly");
+  const req=tx.objectStore(DB_STORE).get("main");
+  req.onsuccess=()=>resolve(req.result||null);
+  req.onerror=()=>reject(req.error);
+ });
+}
+
+async function saveData(){
+ try{
+  await dbSave(data);
+  showToast("Saved successfully ♡");
+ }catch(error){
+  try{
+   localStorage.setItem("jaoriche_credit_backup",JSON.stringify(data));
+   showToast("Saved locally ♡");
+  }catch(e){
+   alert("พื้นที่จัดเก็บเต็ม กรุณาลดขนาดรูปภาพ");
+  }
+ }
+}
+
+async function loadData(){
+ try{
+  const saved=await dbLoad();
+
+  if(saved){
+   data={
+    ...structuredClone(defaultData),
+    ...saved,
+    profile:{...defaultData.profile,...saved.profile},
+    music:{...defaultData.music,...saved.music},
+    decor:{...defaultData.decor,...saved.decor},
+    colors:{...defaultData.colors,...saved.colors}
+   };
+  }else{
+   const backup=localStorage.getItem("jaoriche_credit_backup");
+   if(backup){
+    const parsed=JSON.parse(backup);
+    data={
+     ...structuredClone(defaultData),
+     ...parsed,
+     profile:{...defaultData.profile,...parsed.profile},
+     music:{...defaultData.music,...parsed.music},
+     decor:{...defaultData.decor,...parsed.decor},
+     colors:{...defaultData.colors,...parsed.colors}
+    };
+   }
+  }
+ }catch(e){
+  console.warn("Load database:",e);
+ }
+
+ renderWebsite();
+ applyColors();
+}
+
+// Image processing
+// GIF จะเก็บเป็นไฟล์ต้นฉบับ ไม่แปลงเป็นภาพนิ่ง
+async function fileToImage(file,maxSize=1800){
+ if(!file)return "";
+
+ if(!file.type.startsWith("image/")){
+  throw new Error("กรุณาเลือกไฟล์รูปภาพ");
+ }
+
+ return new Promise((resolve,reject)=>{
+  const reader=new FileReader();
+
+  reader.onerror=()=>reject(new Error("อ่านรูปภาพไม่สำเร็จ"));
+
+  reader.onload=()=>{
+   const originalData=reader.result;
+
+   if(file.type==="image/gif"){
+    resolve(originalData);
+    return;
+   }
+
+   const img=new Image();
+
+   img.onerror=()=>reject(new Error("ไฟล์รูปภาพไม่รองรับ"));
+
+   img.onload=()=>{
+    const ratio=Math.min(1,maxSize/Math.max(img.width,img.height));
+    const canvas=document.createElement("canvas");
+    canvas.width=Math.round(img.width*ratio);
+    canvas.height=Math.round(img.height*ratio);
+
+    const ctx=canvas.getContext("2d");
+    ctx.drawImage(img,0,0,canvas.width,canvas.height);
+
+    try{
+     resolve(canvas.toDataURL("image/webp",0.88));
+    }catch(e){
+     resolve(canvas.toDataURL("image/jpeg",0.88));
+    }
+   };
+
+   img.src=originalData;
+  };
+
+  reader.readAsDataURL(file);
+ });
+}
+
+async function getFileImage(id){
+ const input=document.getElementById(id);
+ if(!input || !input.files || !input.files[0])return "";
+ return await fileToImage(input.files[0]);
+}
+
+// General helpers
+function escapeHTML(value){
+ return String(value??"").replace(/[&<>"']/g,char=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+ }[char]));
+}
+
+function closeModal(id){
+ document.getElementById(id)?.classList.add("hidden");
+}
+
+function showToast(message){
+ const toast=document.getElementById("toast");
+ toast.textContent=message;
+ toast.classList.remove("hidden");
+ clearTimeout(window.toastTimer);
+ window.toastTimer=setTimeout(()=>{
+  toast.classList.add("hidden");
+ },2400);
+}
+
+function openAdminLogin(){
+ if(isAdmin){
+  openAdminDashboard();
+  return;
+ }
+
+ document.getElementById("adminPassword").value="";
+ document.getElementById("loginModal").classList.remove("hidden");
+}
+
+function loginAdmin(){
+ const password=document.getElementById("adminPassword").value;
+
+ if(password!==ADMIN_PASSWORD){
+  showToast("Incorrect password ♡");
+  return;
+ }
+
+ isAdmin=true;
+ closeModal("loginModal");
+ openAdminDashboard();
+}
+
+function logoutAdmin(){
+ isAdmin=false;
+ closeModal("adminModal");
+ renderReviews();
+ showToast("Logged out ♡");
+}
+
+function renderWebsite(){
+ renderProfile();
+ renderStories();
+ renderContacts();
+ renderReviews();
+ renderTicker();
+ renderMusic();
+}
+
+function renderProfile(){
+ const p=data.profile;
+
+ document.getElementById("brandTitle").textContent=
+  p.pageTitle||"Credit Profile";
+
+ document.getElementById("shopName").textContent=p.name;
+ document.getElementById("shopDesc").textContent=p.description;
+ document.getElementById("footerText").textContent=p.footer;
+ document.getElementById("verifiedBadge").classList.toggle("hidden",!p.verified);
+
+ const avatar=document.getElementById("shopAvatar");
+ const banner=document.getElementById("bannerImg");
+ const bundle=document.getElementById("shopBundle");
+
+ avatar.src=p.avatar||placeholderAvatar;
+
+ if(p.banner){
+  banner.src=p.banner;
+  banner.classList.remove("hidden");
+ }else{
+  banner.classList.add("hidden");
+ }
+
+ if(p.bundle){
+  bundle.src=p.bundle;
+  bundle.classList.remove("hidden");
+ }else{
+  bundle.classList.add("hidden");
+ }
+
+ const box=document.getElementById("bannerBox");
+ box.style.background=p.banner
+  ?"transparent"
+  :"linear-gradient(120deg,#37213c,#a66c99,#39243e)";
+
+ document.title="Jaoriche — "+(p.pageTitle||"Credit Profile");
+}
+
+function renderTicker(){
+ const track=document.getElementById("tickerTrack");
+ const message=data.profile.ticker||"";
+
+ document.getElementById("tickerBox").classList.toggle("hidden",!message);
+
+ const content=escapeHTML(message);
+ track.innerHTML=`
+  <span>${content}</span>
+  <span>${content}</span>
+  <span>${content}</span>
+  <span>${content}</span>
+ `;
+}
+
+function renderContacts(){
+ const nav=document.getElementById("socialLinks");
+ nav.innerHTML="";
+
+ data.contacts.forEach(contact=>{
+  const a=document.createElement("a");
+  a.className="social-btn";
+  a.textContent=contact.name;
+  a.href=contact.url;
+  a.target="_blank";
+  a.rel="noopener noreferrer";
+  nav.appendChild(a);
+ });
+}
+
+// ==========================================
+// FACEBOOK-STYLE STORIES
+// ==========================================
+
+function renderStories(){
+ const list=document.getElementById("storyList");
+ list.innerHTML="";
+
+ if(!data.stories.length){
+  list.innerHTML='<div style="color:var(--muted);font-size:12px;padding:10px">No stories yet ♡</div>';
+  return;
+ }
+
+ data.stories.forEach((story,index)=>{
+  const item=document.createElement("div");
+  item.className="story";
+
+  item.innerHTML=`
+   <div class="story-cover">
+    <img src="${story.cover||story.images?.[0]||placeholderAvatar}" alt="">
+   </div>
+   <span class="story-name">${escapeHTML(story.title)}</span>
+  `;
+
+  item.addEventListener("click",()=>openStory(index));
+  list.appendChild(item);
+ });
+}
+
+function openStory(index){
+ const story=data.stories[index];
+ if(!story)return;
+
+ const images=story.images||[];
+ if(!images.length){
+  if(story.cover)images.push(story.cover);
+  else return;
+ }
+
+ activeStory=index;
+ activeStoryImage=0;
+
+ document.getElementById("storyViewer").classList.remove("hidden");
+ showStoryImage();
+}
+
+function showStoryImage(){
+ clearTimeout(storyTimer);
+
+ const story=data.stories[activeStory];
+ if(!story){
+  closeStoryViewer();
+  return;
+ }
+
+ const images=story.images||[];
+ if(!images.length){
+  closeStoryViewer();
+  return;
+ }
+
+ if(activeStoryImage>=images.length){
+  closeStoryViewer();
+  return;
+ }
+
+ document.getElementById("storyViewerTitle").textContent=story.title||"Story";
+ document.getElementById("storyViewerImage").src=images[activeStoryImage];
+
+ const progress=document.getElementById("storyProgress");
+ progress.innerHTML="";
+
+ images.forEach((image,index)=>{
+  const segment=document.createElement("span");
+
+  if(index<activeStoryImage)segment.classList.add("done");
+  if(index===activeStoryImage)segment.classList.add("active");
+
+  segment.innerHTML="<i></i>";
+  progress.appendChild(segment);
+ });
+
+ // เปลี่ยนรูปอัตโนมัติทุก 7 วินาที
+ storyTimer=setTimeout(()=>{
+  nextStoryImage();
+ },7000);
+}
+
+function nextStoryImage(){
+ const story=data.stories[activeStory];
+ if(!story)return;
+
+ if(activeStoryImage<(story.images||[]).length-1){
+  activeStoryImage++;
+  showStoryImage();
+ }else{
+  closeStoryViewer();
+ }
+}
+
+function previousStoryImage(){
+ if(activeStoryImage>0){
+  activeStoryImage--;
+  showStoryImage();
+ }
+}
+
+function closeStoryViewer(){
+ clearTimeout(storyTimer);
+ storyTimer=null;
+ document.getElementById("storyViewer").classList.add("hidden");
+ document.getElementById("storyViewerImage").src="";
+ activeStory=null;
+ activeStoryImage=0;
+}
+
+// ==========================================
+// CUSTOMER REVIEWS
+// ==========================================
+
+function renderReviews(){
+ const grid=document.getElementById("reviewGrid");
+ grid.innerHTML="";
+
+ const reviews=[...data.reviews].sort((a,b)=>b.createdAt-a.createdAt);
+
+ const total=reviews.reduce((sum,r)=>sum+Number(r.rating||0),0);
+ const average=reviews.length?total/reviews.length:0;
+
+ document.getElementById("averageRating").textContent=average.toFixed(1);
+
+ document.getElementById("averageHearts").textContent=
+  "♥".repeat(Math.round(average))+
+  "♡".repeat(5-Math.round(average));
+
+ document.getElementById("reviewCount").textContent=reviews.length;
+
+ if(!reviews.length){
+  grid.innerHTML='<div class="review-empty">♡ No reviews yet. Be the first to write one! ♡</div>';
+  return;
+ }
+
+ reviews.forEach(review=>{
+  const card=document.createElement("article");
+  card.className="review-card";
+
+  const first=(review.name||"?").trim().charAt(0).toUpperCase();
+
+  const avatar=review.avatar
+   ?`<img src="${review.avatar}" alt="">`
+   :escapeHTML(first);
+
+  const date=new Date(review.createdAt||Date.now());
+
+  const dateText=date.toLocaleString("th-TH",{
+   day:"2-digit",
+   month:"2-digit",
+   year:"numeric",
+   hour:"2-digit",
+   minute:"2-digit"
+  });
+
+  const photos=(review.photos||[]).map(src=>
+   `<img src="${src}" alt="Review image" loading="lazy">`
+  ).join("");
+
+  const corners=data.decor.corners||{};
+  const size=Math.max(15,Math.min(150,Number(data.decor.cornerSize)||52));
+
+  let cornerHTML="";
+
+  ["tl","tr","bl","br"].forEach(position=>{
+   if(corners[position]){
+    cornerHTML+=`
+     <img class="review-corner ${position}"
+      style="width:${size}px;height:${size}px"
+      src="${corners[position]}" alt="">
+    `;
+   }
+  });
+
+  // ปุ่ม Like / Delete แสดงเฉพาะตอนแอดมินเข้าสู่ระบบ
+  const adminControls=isAdmin?`
+   <div class="admin-actions">
+    <button onclick="toggleAdminLike('${review.id}')">
+     ${review.adminLiked?"♡ Unlike":"♥ Admin Like"}
+    </button>
+    <button onclick="deleteReview('${review.id}')">Delete</button>
+   </div>
+  `:"";
+
+  card.innerHTML=`
+   ${cornerHTML}
+   <div class="review-user">
+    <div class="review-avatar" style="background:${data.colors.profile};color:${data.colors.initial}">
+     ${avatar}
+    </div>
+    <div style="min-width:0">
+     <div class="review-user-name">${escapeHTML(review.name)}</div>
+     <div class="review-date">${dateText}</div>
+    </div>
+   </div>
+   <div class="review-hearts">
+    ${"♥".repeat(review.rating)}${"♡".repeat(5-review.rating)}
+   </div>
+   <div class="review-text">${escapeHTML(review.message)}</div>
+   <div class="review-images">${photos}</div>
+   ${review.adminLiked?'<div class="admin-liked">♥ <span>Liked by admin</span></div>':""}
+   ${adminControls}
+  `;
+
+  grid.appendChild(card);
+
+  // รองรับกรอบโปรไฟล์รีวิวเดิมที่เคยบันทึกไว้
+  // ไม่แสดงช่องอัปโหลดกรอบในแบบฟอร์มรีวิวใหม่แล้ว
+  if(review.bundle){
+   const avatarBox=card.querySelector(".review-avatar");
+
+   const frame=document.createElement("img");
+   frame.src=review.bundle;
+   frame.alt="";
+   frame.className="review-avatar-frame";
+
+   avatarBox.appendChild(frame);
+  }
+ });
+}
+
+// Review rating picker
+document.querySelectorAll("#heartPicker button").forEach(button=>{
+ button.addEventListener("click",()=>{
+  selectedRating=Number(button.dataset.rating);
+  updateHeartPicker();
+ });
+});
+
+function updateHeartPicker(){
+ document.querySelectorAll("#heartPicker button").forEach(button=>{
+  const rating=Number(button.dataset.rating);
+  button.classList.toggle("active",rating<=selectedRating);
+  button.textContent=rating<=selectedRating?"♥":"♡";
+ });
+}
+
+function openReviewModal(){
+ selectedRating=5;
+ updateHeartPicker();
+
+ ["reviewName","reviewMessage","reviewAvatar","reviewPhotos"].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el)el.value="";
+ });
+
+ document.getElementById("reviewModal").classList.remove("hidden");
+}
+
+async function submitReview(){
+ try{
+  const name=document.getElementById("reviewName").value.trim();
+  const message=document.getElementById("reviewMessage").value.trim();
+
+  if(!name){
+   alert("กรุณาใส่ชื่อผู้รีวิว");
+   return;
+  }
+
+  if(!message){
+   alert("กรุณาเขียนข้อความรีวิว");
+   return;
+  }
+
+  const avatar=await getFileImage("reviewAvatar");
+
+  const photoInput=document.getElementById("reviewPhotos");
+  const files=Array.from(photoInput.files||[]).slice(0,4);
+  const photos=[];
+
+  for(const file of files){
+   photos.push(await fileToImage(file,1400));
+  }
+
+  const review={
+   id:crypto.randomUUID(),
+   name,
+   message,
+   rating:selectedRating,
+   avatar,
+   photos,
+   createdAt:Date.now(),
+   adminLiked:false
+  };
+
+  data.reviews.push(review);
+  await saveData();
+
+  closeModal("reviewModal");
+  renderReviews();
+  showToast("Thank you for your review ♡");
+
+ }catch(error){
+  console.error(error);
+  alert("ไม่สามารถบันทึกรีวิวได้ กรุณาลองใช้รูปภาพขนาดเล็กลง");
+ }
+}
+
+async function toggleAdminLike(id){
+ if(!isAdmin)return;
+
+ const review=data.reviews.find(r=>r.id===id);
+ if(!review)return;
+
+ review.adminLiked=!review.adminLiked;
+ await saveData();
+ renderReviews();
+}
+
+async function deleteReview(id){
+ if(!isAdmin)return;
+ if(!confirm("ต้องการลบรีวิวนี้หรือไม่?"))return;
+
+ data.reviews=data.reviews.filter(r=>r.id!==id);
+ await saveData();
+ renderReviews();
+ showToast("Review deleted");
+}
+
+// Initial render helpers
+updateHeartPicker();
+
+// ==========================================
+// ADMIN DASHBOARD
+// ==========================================
+
+function openAdminDashboard(){
+ if(!isAdmin)return;
+
+ document.getElementById("adminModal").classList.remove("hidden");
+ showAdminTab("profile");
+}
+
+document.getElementById("adminTabs").addEventListener("click",event=>{
+ const button=event.target.closest("[data-tab]");
+ if(!button)return;
+
+ document.querySelectorAll(".admin-tab").forEach(tab=>{
+  tab.classList.remove("active");
+ });
+
+ button.classList.add("active");
+ showAdminTab(button.dataset.tab);
+});
+
+function showAdminTab(tab){
+ const content=document.getElementById("adminContent");
+
+ if(!isAdmin)return;
+
+ if(tab==="profile"){
+  content.innerHTML=`
+   <h3>♡ Shop Profile</h3>
+   <div class="field">
+    <label>Credit Profile Heading</label>
+    <input id="editPageTitle" value="${escapeHTML(data.profile.pageTitle||"Credit Profile")}">
+   </div>
+   <div class="field">
+    <label>Shop Name</label>
+    <input id="editName" value="${escapeHTML(data.profile.name)}">
+   </div>
+   <div class="field">
+    <label>Shop Description</label>
+    <textarea id="editDescription">${escapeHTML(data.profile.description)}</textarea>
+   </div>
+   <div class="field">
+    <label>Scrolling Message</label>
+    <textarea id="editTicker">${escapeHTML(data.profile.ticker)}</textarea>
+   </div>
+   <div class="field">
+    <label>Shop Footer</label>
+    <input id="editFooter" value="${escapeHTML(data.profile.footer)}">
+   </div>
+   <div class="field">
+    <label>Shop Avatar</label>
+    <input type="file" id="editAvatar" accept="image/*">
+    <img src="${data.profile.avatar||placeholderAvatar}" style="width:75px;height:75px;object-fit:cover;border-radius:50%;margin-top:8px">
+   </div>
+   <div class="field">
+    <label>Shop Banner</label>
+    <input type="file" id="editBanner" accept="image/*">
+    <img src="${data.profile.banner||placeholderAvatar}" style="width:100%;max-height:110px;object-fit:cover;border-radius:10px;margin-top:8px">
+   </div>
+   <div class="field">
+    <label>Avatar Frame</label>
+    <input type="file" id="editBundle" accept="image/*">
+    <p>กรอบรูปโปรไฟล์ร้าน รองรับ PNG และ GIF แบบเคลื่อนไหว</p>
+   </div>
+   <div class="field">
+    <label>
+     <input type="checkbox" id="editVerified" ${data.profile.verified?"checked":""}>
+     Show Verified Badge
+    </label>
+   </div>
+   <div class="admin-actions">
+    <button onclick="saveProfile()">Save Profile ♡</button>
+    <button onclick="removeBundle()">Remove Avatar Frame</button>
+   </div>
+  `;
+ }
+
+ if(tab==="stories"){
+  content.innerHTML=`
+   <h3>♡ Story Highlights</h3>
+   <p>เพิ่มไฮไลท์ใหม่ หรือแก้ไขรูปภาพในไฮไลท์เดิมได้</p>
+   <div class="field">
+    <label>Highlight Name</label>
+    <input id="newStoryName" placeholder="เช่น Reviews / Orders / Thanks">
+   </div>
+   <div class="field">
+    <label>Cover Image</label>
+    <input type="file" id="newStoryCover" accept="image/*">
+   </div>
+   <div class="field">
+    <label>Story Images</label>
+    <input type="file" id="newStoryImages" accept="image/*" multiple>
+   </div>
+   <button class="primary-btn" onclick="addStory()">+ Create Highlight</button>
+   <hr style="border-color:var(--border);margin:20px 0">
+   <h3>Existing Highlights</h3>
+   <div id="adminStoryList"></div>
+  `;
+  renderAdminStories();
+ }
+
+ if(tab==="contacts"){
+  content.innerHTML=`
+   <h3>♡ Contact Channels</h3>
+   <div class="field">
+    <label>Platform Name</label>
+    <input id="contactName" placeholder="Discord / Facebook / Instagram">
+   </div>
+   <div class="field">
+    <label>Contact URL</label>
+    <input id="contactURL" placeholder="https://...">
+   </div>
+   <button class="primary-btn" onclick="addContact()">+ Add Contact</button>
+   <hr style="border-color:var(--border);margin:20px 0">
+   <div id="adminContactList"></div>
+  `;
+  renderAdminContacts();
+ }
+
+ if(tab==="reviews"){
+  content.innerHTML=`
+   <h3>♡ Review Management</h3>
+   <p>จัดการรีวิวและกดหัวใจให้ลูกค้าได้</p>
+   <div id="adminReviewList"></div>
+  `;
+  renderAdminReviewList();
+ }
+
+ if(tab==="decor"){
+  content.innerHTML=`
+   <h3>♡ Review Card Decorations</h3>
+   <p>ตกแต่งมุมการ์ดรีวิว รองรับ PNG โปร่งใสและ GIF แบบเคลื่อนไหว</p>
+   <div class="field">
+    <label>Top Left Image</label>
+    <input type="file" id="cornerTL" accept="image/*">
+   </div>
+   <div class="field">
+    <label>Top Right Image</label>
+    <input type="file" id="cornerTR" accept="image/*">
+   </div>
+   <div class="field">
+    <label>Bottom Left Image</label>
+    <input type="file" id="cornerBL" accept="image/*">
+   </div>
+   <div class="field">
+    <label>Bottom Right Image</label>
+    <input type="file" id="cornerBR" accept="image/*">
+   </div>
+   <div class="field">
+    <label>Decoration Size (15–150 px)</label>
+    <input type="number" id="cornerSize" min="15" max="150" value="${data.decor.cornerSize}">
+   </div>
+   <div class="admin-actions">
+    <button onclick="saveDecor()">Save Decorations</button>
+    <button onclick="clearDecor()">Remove All</button>
+   </div>
+  `;
+  }
+
+  if(tab==="music"){
+  content.innerHTML=`
+   <h3>♫ Music Player</h3>
+   <div class="field">
+    <label>Song Title</label>
+    <input id="musicTitle" value="${escapeHTML(data.music.title)}">
+   </div>
+   <div class="field">
+    <label>YouTube or Spotify Link</label>
+    <input id="musicURL" value="${escapeHTML(data.music.url)}" placeholder="https://www.youtube.com/watch?v=...">
+   </div>
+   <p>รองรับ YouTube video, YouTube playlist และ Spotify track / playlist / album</p>
+   <div class="admin-actions">
+    <button onclick="saveMusic()">Save Music ♡</button>
+    <button onclick="removeMusic()">Remove Music</button>
+   </div>
+  `;
+ }
+
+  if(tab==="colors"){
+  content.innerHTML=`
+   <h3>♡ Custom Color Settings</h3>
+   <p>ใส่รหัสสี HEX โดยเริ่มต้นด้วยเครื่องหมาย #</p>
+   <div class="color-grid" id="colorEditor"></div>
+   <div class="admin-actions">
+    <button onclick="saveColors()">Save All Colors</button>
+    <button onclick="resetColors()">Reset Colors</button>
+   </div>
+   <hr style="border-color:var(--border);margin:22px 0">
+   <h3>♡ Ready-made Themes</h3>
+   <p>เลือกธีมสำเร็จรูปได้ 12 แบบ และสามารถปรับ HEX เพิ่มเติมภายหลังได้</p>
+   <h4>Light Themes</h4>
+   <div class="theme-grid" id="lightThemes"></div>
+   <h4 style="margin-top:20px">Dark Themes</h4>
+   <div class="theme-grid" id="darkThemes"></div>
+  `;
+
+  renderColorEditor();
+  renderThemes();
+  }
+
+  if(tab==="backup"){
+  content.innerHTML=`
+   <h3>♡ Data Backup</h3>
+   <p>สำรองข้อมูลเว็บไซต์ รวมถึงรีวิวและรูปภาพในรูปแบบ JSON</p>
+   <div class="admin-actions">
+    <button onclick="exportBackup()">Download Backup</button>
+    <button onclick="document.getElementById('backupFile').click()">Restore Backup</button>
+   </div>
+   <input type="file" id="backupFile" accept=".json,application/json" class="hidden">
+   <hr style="border-color:var(--border);margin:20px 0">
+   <h3>Danger Zone</h3>
+   <button class="danger-btn" onclick="resetWebsite()">Reset All Website Data</button>
+  `;
+
+  document.getElementById("backupFile").addEventListener("change",restoreBackup);
+ }
+}
+
+  // PROFILE
+async function saveProfile(){
+ try{
+  data.profile.pageTitle=
+   document.getElementById("editPageTitle").value.trim()||"Credit Profile";
+
+  data.profile.name=
+   document.getElementById("editName").value.trim()||"My Shop";
+
+  data.profile.description=document.getElementById("editDescription").value;
+  data.profile.ticker=document.getElementById("editTicker").value;
+  data.profile.footer=document.getElementById("editFooter").value;
+  data.profile.verified=document.getElementById("editVerified").checked;
+
+  const avatar=await getFileImage("editAvatar");
+  const banner=await getFileImage("editBanner");
+  const bundle=await getFileImage("editBundle");
+
+  if(avatar)data.profile.avatar=avatar;
+  if(banner)data.profile.banner=banner;
+  if(bundle)data.profile.bundle=bundle;
+
+  await saveData();
+  renderWebsite();
+  showAdminTab("profile");
+
+ }catch(error){
+  alert("ไม่สามารถบันทึกรูปได้: "+error.message);
+ }
+  }
+
+  async function removeBundle(){
+ if(!isAdmin)return;
+
+ data.profile.bundle="";
+ await saveData();
+ renderProfile();
+ showAdminTab("profile");
+}
+
+// ==========================================
+// STORIES ADMIN
+// ==========================================
+
+function renderAdminStories(){
+ const box=document.getElementById("adminStoryList");
+ if(!box)return;
+
+ box.innerHTML="";
+
+ if(!data.stories.length){
+  box.innerHTML='<p>No highlights yet.</p>';
+  return;
+ }
+
+ data.stories.forEach((story,index)=>{
+  const item=document.createElement("div");
+  item.className="admin-list-item";
+
+  item.innerHTML=`
+   <img src="${story.cover||story.images[0]||placeholderAvatar}">
+   <div class="item-info">
+    <strong>${escapeHTML(story.title)}</strong>
+    <br>${story.images.length} images
+   </div>
+   <button onclick="editStory(${index})">Edit</button>
+   <button onclick="deleteStory(${index})">Delete</button>
+  `;
+
+  box.appendChild(item);
+ });
+}
+
+  async function addStory(){
+ if(!isAdmin)return;
+
+ try{
+  const title=document.getElementById("newStoryName").value.trim();
+  const cover=await getFileImage("newStoryCover");
+
+  const files=Array.from(
+   document.getElementById("newStoryImages").files||[]
+  );
+
+  if(!title){
+   alert("กรุณาตั้งชื่อไฮไลท์");
+   return;
+  }
+
+  if(!cover&&!files.length){
+   alert("กรุณาเพิ่มรูปปกหรือรูปสตอรี่");
+   return;
+  }
+
+  const images=[];
+
+  for(const file of files){
+   images.push(await fileToImage(file,1600));
+  }
+
+  data.stories.push({
+   id:crypto.randomUUID(),
+   title,
+   cover:cover||images[0],
+   images:images.length?images:[cover]
+  });
+
+  await saveData();
+  renderWebsite();
+  showAdminTab("stories");
+  showToast("Highlight created ♡");
+
+ }catch(error){
+  alert("เพิ่มไฮไลท์ไม่สำเร็จ: "+error.message);
+ }
+  }
+
+  // เปิดหน้าต่างแก้ไขไฮไลท์เฉพาะรายการ
+function editStory(index){
+ if(!isAdmin)return;
+
+ const story=data.stories[index];
+ if(!story)return;
+
+ editingStoryIndex=index;
+
+ document.getElementById("storyEditTitle").value=story.title||"";
+ document.getElementById("storyEditCover").value="";
+ document.getElementById("storyEditAddImages").value="";
+
+ document.getElementById("storyEditCoverPreview").src=
+  story.cover||story.images?.[0]||placeholderAvatar;
+
+ const existing=document.getElementById("storyEditExistingImages");
+ existing.innerHTML="";
+
+ (story.images||[]).forEach((src,imageIndex)=>{
+  const row=document.createElement("label");
+
+  row.style.cssText=
+   "display:flex;align-items:center;gap:9px;padding:7px;background:var(--bg1);border-radius:10px;margin:7px 0";
+
+  row.innerHTML=`
+   <input type="checkbox" class="story-remove-image" value="${imageIndex}">
+   <img src="${src}" style="width:52px;height:52px;object-fit:cover;border-radius:8px">
+   <span style="font-size:11px">รูปที่ ${imageIndex+1} — เลือกเพื่อลบ</span>
+  `;
+
+  existing.appendChild(row);
+ });
+
+  document.getElementById("storyEditModal").classList.remove("hidden");
+}
+
+async function saveStoryEdit(){
+ if(!isAdmin||editingStoryIndex===null)return;
+
+ try{
+  const story=data.stories[editingStoryIndex];
+  if(!story)return;
+
+  const title=document.getElementById("storyEditTitle").value.trim();
+
+  if(!title){
+   alert("กรุณาใส่ชื่อไฮไลท์");
+   return;
+  }
+
+  story.title=title;
+
+  const cover=await getFileImage("storyEditCover");
+  if(cover)story.cover=cover;
+
+  const removeIndexes=Array.from(
+   document.querySelectorAll(".story-remove-image:checked")
+  ).map(input=>Number(input.value));
+
+  story.images=(story.images||[]).filter(
+   (_,index)=>!removeIndexes.includes(index)
+  );
+
+  const addedFiles=Array.from(
+   document.getElementById("storyEditAddImages").files||[]
+  );
+
+  for(const file of addedFiles){
+   story.images.push(await fileToImage(file,1600));
+  }
+
+  if(!story.images.length&&story.cover){
+   story.images=[story.cover];
+  }
+
+  if(!story.cover&&story.images.length){
+   story.cover=story.images[0];
+  }
+
+  await saveData();
+
+  closeModal("storyEditModal");
+  editingStoryIndex=null;
+
+  renderWebsite();
+  showAdminTab("stories");
+  showToast("Highlight updated ♡");
+
+ }catch(error){
+  alert("แก้ไขไฮไลท์ไม่สำเร็จ: "+error.message);
+ }
+}
+
+async function deleteStory(index){
+ if(!isAdmin)return;
+ if(!confirm("ลบไฮไลท์นี้ใช่ไหม?"))return;
+
+ data.stories.splice(index,1);
+ await saveData();
+ renderWebsite();
+ showAdminTab("stories");
+}
+
+function chooseImageFile(){
+ return new Promise(resolve=>{
+  const input=document.createElement("input");
+  input.type="file";
+  input.accept="image/*";
+  input.onchange=()=>resolve(input.files[0]||null);
+  input.click();
+ });
+  }
+
+  function chooseMultipleImages(){
+ return new Promise(resolve=>{
+  const input=document.createElement("input");
+  input.type="file";
+  input.accept="image/*";
+  input.multiple=true;
+  input.onchange=()=>resolve(Array.from(input.files||[]));
+  input.click();
+ });
+  }
+
+  // ==========================================
+// CONTACTS
+// ==========================================
+
+function renderAdminContacts(){
+ const box=document.getElementById("adminContactList");
+ if(!box)return;
+
+ box.innerHTML="";
+
+ data.contacts.forEach((contact,index)=>{
+  const item=document.createElement("div");
+  item.className="admin-list-item";
+
+  item.innerHTML=`
+   <div class="item-info">
+    <strong>${escapeHTML(contact.name)}</strong>
+    <br><small>${escapeHTML(contact.url)}</small>
+   </div>
+   <button onclick="editContact(${index})">Edit</button>
+   <button onclick="deleteContact(${index})">Delete</button>
+  `;
+
+  box.appendChild(item);
+ });
+}
+
+async function addContact(){
+ if(!isAdmin)return;
+
+ const name=document.getElementById("contactName").value.trim();
+ const url=document.getElementById("contactURL").value.trim();
+
+ if(!name||!url){
+  alert("กรุณากรอกชื่อและลิงก์");
+  return;
+ }
+
+ if(!/^https?:\/\//i.test(url)){
+  alert("กรุณาใส่ลิงก์ที่ขึ้นต้นด้วย https:// หรือ http://");
+  return;
+ }
+
+ data.contacts.push({id:crypto.randomUUID(),name,url});
+
+ await saveData();
+ renderWebsite();
+ showAdminTab("contacts");
+}
+
+async function editContact(index){
+ if(!isAdmin)return;
+
+ const contact=data.contacts[index];
+
+ const name=prompt("ชื่อช่องทาง:",contact.name);
+ if(name===null)return;
+
+ const url=prompt("URL:",contact.url);
+ if(url===null)return;
+
+ if(!/^https?:\/\//i.test(url)){
+  alert("ลิงก์ไม่ถูกต้อง");
+  return;
+ }
+
+ contact.name=name.trim()||contact.name;
+ contact.url=url.trim();
+
+ await saveData();
+ renderWebsite();
+ showAdminTab("contacts");
+}
+
+async function deleteContact(index){
+ if(!isAdmin)return;
+ if(!confirm("ลบช่องทางนี้?"))return;
+
+ data.contacts.splice(index,1);
+
+ await saveData();
+ renderWebsite();
+ showAdminTab("contacts");
+}
+
+// ==========================================
+// REVIEW ADMIN
+// ==========================================
+
+function renderAdminReviewList(){
+ const box=document.getElementById("adminReviewList");
+ if(!box)return;
+
+ box.innerHTML="";
+
+ if(!data.reviews.length){
+  box.innerHTML="<p>ยังไม่มีรีวิว</p>";
+  return;
+ }
+
+ data.reviews.forEach(review=>{
+  const item=document.createElement("div");
+  item.className="admin-list-item";
+
+  item.innerHTML=`
+   <div class="item-info">
+    <strong>${escapeHTML(review.name)}</strong>
+    <br><span style="color:var(--heart)">${"♥".repeat(review.rating)}</span>
+    <br>${escapeHTML(review.message).slice(0,80)}
+   </div>
+   <button onclick="toggleAdminLike('${review.id}')">
+    ${review.adminLiked?"♡ Unlike":"♥ Like"}
+   </button>
+   <button onclick="deleteReview('${review.id}');showAdminTab('reviews')">
+    Delete
+   </button>
+  `;
+
+  box.appendChild(item);
+ });
+}
+
+// ==========================================
+// CORNER DECORATIONS
+// ==========================================
+
+async function saveDecor(){
+ if(!isAdmin)return;
+
+ try{
+  const map={
+   tl:"cornerTL",
+   tr:"cornerTR",
+   bl:"cornerBL",
+   br:"cornerBR"
+  };
+
+  for(const [position,id] of Object.entries(map)){
+   const image=await getFileImage(id);
+   if(image)data.decor.corners[position]=image;
+  }
+
+  const size=Number(document.getElementById("cornerSize").value);
+
+  data.decor.cornerSize=Math.max(
+   15,
+   Math.min(150,size||52)
+  );
+
+  await saveData();
+  renderReviews();
+  showAdminTab("decor");
+
+ }catch(error){
+  alert("ไม่สามารถบันทึกรูปตกแต่งได้");
+ }
+}
+
+async function clearDecor(){
+ if(!isAdmin)return;
+ if(!confirm("ลบรูปตกแต่งทุกมุม?"))return;
+
+ data.decor.corners={tl:"",tr:"",bl:"",br:""};
+
+ await saveData();
+ renderReviews();
+ showAdminTab("decor");
+}
+
+// ==========================================
+// MUSIC PLAYER
+// ==========================================
+
+function extractMusicEmbed(url){
+ try{
+  const parsed=new URL(url);
+  const host=parsed.hostname.replace(/^www\./,"");
+
+  if(host==="youtu.be"){
+   const id=parsed.pathname.slice(1);
+
+   return id?{
+    type:"youtube",
+    src:"https://www.youtube-nocookie.com/embed/"+
+     encodeURIComponent(id)+"?enablejsapi=1"
+   }:null;
+  }
+
+  if(host.endsWith("youtube.com")||host==="youtube.com"){
+   let id=parsed.searchParams.get("v");
+   const playlist=parsed.searchParams.get("list");
+
+   if(parsed.pathname==="/shorts/"||parsed.pathname.startsWith("/shorts/")){
+    id=parsed.pathname.split("/")[2];
+   }
+
+   if(parsed.pathname==="/embed/"||parsed.pathname.startsWith("/embed/")){
+    id=parsed.pathname.split("/")[2];
+   }
+
+   if(id){
+    return {
+     type:"youtube",
+     src:"https://www.youtube-nocookie.com/embed/"+
+      encodeURIComponent(id)+"?enablejsapi=1"
+    };
+   }
+
+   if(playlist){
+    return {
+     type:"youtube",
+     src:"https://www.youtube-nocookie.com/embed/videoseries?list="+
+      encodeURIComponent(playlist)
+    };
+   }
+  }
+
+  if(host==="open.spotify.com"||host==="spotify.link"){
+   const parts=parsed.pathname.split("/").filter(Boolean);
+   const type=parts[0];
+   const id=parts[1];
+
+   if(["track","album","playlist","episode","show"].includes(type)&&id){
+    return {
+     type:"spotify",
+     src:"https://open.spotify.com/embed/"+type+"/"+
+      encodeURIComponent(id)+"?utm_source=generator"
+    };
+   }
+  }
+
+ }catch(error){
+  return null;
+ }
+
+ return null;
+}
+
+async function saveMusic(){
+ if(!isAdmin)return;
+
+ const title=document.getElementById("musicTitle").value.trim();
+ const url=document.getElementById("musicURL").value.trim();
+
+ if(url&&!extractMusicEmbed(url)){
+  alert("ลิงก์ไม่ถูกต้อง กรุณาใช้ลิงก์ YouTube หรือ Spotify");
+  return;
+ }
+
+ data.music={
+  title:title||"Our Music ♡",
+  url
+ };
+
+ await saveData();
+
+ // อัปเดตเครื่องเล่นเฉพาะเมื่อเปลี่ยนเพลง
+ renderMusic();
+ showToast("Music saved ♡");
+}
+
+async function removeMusic(){
+ if(!isAdmin)return;
+
+ data.music={title:"Our Music ♡",url:""};
+
+ await saveData();
+
+ const player=document.getElementById("musicPlayer");
+ player.innerHTML=
+  '<p style="font-size:11px;color:var(--muted)">ยังไม่ได้ตั้งค่าเพลง ♡</p>';
+
+ closeMusicPopup();
+ showAdminTab("music");
+}
+
+function renderMusic(){
+ // ถ้าป๊อปอัปเปิดอยู่ ให้แสดงเพลงปัจจุบัน
+ // ถ้าปิดอยู่ ไม่แตะต้อง iframe เพื่อไม่ให้เพลงหยุด
+ if(currentMusicOpen){
+  showMusicPlayer();
+ }
+}
+
+function toggleMusicPopup(){
+ const popup=document.getElementById("musicPopup");
+
+ if(popup.classList.contains("hidden")){
+  popup.classList.remove("hidden");
+  currentMusicOpen=true;
+
+  const iframe=document.querySelector("#musicPlayer iframe");
+
+  // ถ้ามี iframe อยู่แล้ว ให้ใช้ตัวเดิม ไม่สร้างใหม่
+  if(!iframe){
+   showMusicPlayer();
+  }
+
+  document.getElementById("vinylButton").classList.add("playing");
+
+ }else{
+  closeMusicPopup();
+ }
+}
+
+// ซ่อนเฉพาะหน้าต่าง ไม่ลบ iframe และไม่หยุดเสียง
+function closeMusicPopup(){
+ document.getElementById("musicPopup").classList.add("hidden");
+
+ currentMusicOpen=false;
+
+ // เพลงยังเล่นต่อ แม้ปิดหน้าต่างแล้ว
+ // ไม่ใช้ innerHTML="" เพราะจะทำให้ iframe ถูกทำลาย
+}
+
+function showMusicPlayer(){
+ const player=document.getElementById("musicPlayer");
+ const title=document.querySelector(".music-head span");
+
+ title.textContent="♫ "+(data.music.title||"Now Playing");
+
+ const result=extractMusicEmbed(data.music.url);
+
+ if(!result){
+  player.innerHTML=
+   '<p style="font-size:11px;color:var(--muted)">ยังไม่ได้ตั้งค่าเพลง ♡</p>';
+  return;
+ }
+
+ const existing=player.querySelector("iframe");
+
+ // ถ้า iframe เดิมเป็นเพลงเดียวกัน ให้คงการเล่นเดิมไว้
+ if(existing&&existing.dataset.musicSrc===result.src){
+  return;
+ }
+
+ // สร้าง iframe ใหม่เฉพาะตอนยังไม่มี หรือ URL เพลงเปลี่ยน
+ player.innerHTML=`
+  <iframe
+   data-music-src="${escapeHTML(result.src)}"
+   src="${result.src}"
+   title="Music Player"
+   allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+   loading="lazy"
+   allowfullscreen>
+  </iframe>
+  <p style="font-size:10px;color:var(--muted)">
+   หากเพลงไม่เริ่มเล่น กรุณากด Play ภายในเครื่องเล่น
+  </p>
+ `;
+
+ document.getElementById("vinylButton").classList.add("playing");
+}
+
+// ==========================================
+// STORY VIEWER EVENTS
+// ==========================================
+
+// ปิด Story เมื่อคลิกพื้นที่ด้านนอกกรอบ
+document.getElementById("storyViewer").addEventListener("click",event=>{
+ if(event.target.id==="storyViewer"){
+  closeStoryViewer();
+ }
+});
+
+// ป้องกัน timer ค้างเมื่อผู้ใช้ออกจากหน้า
+document.addEventListener("visibilitychange",()=>{
+ if(document.hidden){
+  clearTimeout(storyTimer);
+  storyTimer=null;
+ }else if(activeStory!==null){
+  showStoryImage();
+ }
+});
+
+// รองรับการกด Escape เพื่อปิด Story
+document.addEventListener("keydown",event=>{
+ if(event.key==="Escape"){
+  closeStoryViewer();
+ }
+});
+
+// ==========================================
+// CLOSE MODALS BY CLICKING OUTSIDE
+// ==========================================
+
+document.querySelectorAll(".modal-backdrop").forEach(backdrop=>{
+ backdrop.addEventListener("click",event=>{
+  if(event.target===backdrop){
+   backdrop.classList.add("hidden");
+  }
+ });
+});
+
+// ENTER TO LOGIN
+document.getElementById("adminPassword").addEventListener("keydown",event=>{
+ if(event.key==="Enter")loginAdmin();
+});
+
+// PREVENT UNNECESSARY FILE MEMORY
+window.addEventListener("beforeunload",()=>{
+ clearTimeout(storyTimer);
+ if(db)db.close();
+});
+
+  // ==========================================
+// THEMES, COLORS, BACKUP & STARTUP
+// ==========================================
+
+// COLOR EDITOR
+const colorLabels={
+ bg1:"Background Gradient 1",
+ bg2:"Background Gradient 2",
+ surface:"Card Background",
+ surface2:"Secondary Background",
+ text:"Font Color",
+ muted:"Secondary Font Color",
+ border:"Border Color",
+ accent:"Button / Accent Color",
+ accent2:"Gradient Color 2",
+ btnText:"Button Font Color",
+ profile:"Customer Profile Background",
+ initial:"Customer Initial Font",
+ cardShadow:"Card Shadow Color",
+ heart:"Heart Color"
+};
+
+// ช่องกรอกสีเป็น HEX Text เท่านั้น
+// ไม่มี Color Picker
+function renderColorEditor(){
+ const box=document.getElementById("colorEditor");
+ if(!box)return;
+
+ box.innerHTML="";
+
+ Object.entries(colorLabels).forEach(([key,label])=>{
+  const value=data.colors[key]||"#000000";
+
+  const item=document.createElement("div");
+  item.className="color-item";
+
+  item.innerHTML=`
+   <label>${label}</label>
+   <input
+    type="text"
+    id="color_${key}"
+    value="${escapeHTML(value)}"
+    maxlength="7"
+    placeholder="#000000"
+   >
+  `;
+
+  box.appendChild(item);
+ });
+}
+
+function validHex(value){
+ return /^#[0-9a-fA-F]{6}$/.test(value);
+}
+
+async function saveColors(){
+ if(!isAdmin)return;
+
+ for(const key of Object.keys(colorLabels)){
+  const input=document.getElementById("color_"+key);
+  if(!input)continue;
+
+  const value=input.value.trim();
+
+  if(!validHex(value)){
+   alert(
+    "รหัสสีไม่ถูกต้อง: "+colorLabels[key]+
+    "\nตัวอย่าง #E9A9CF"
+   );
+
+   input.focus();
+   return;
+  }
+
+  data.colors[key]=value;
+ }
+
+ await saveData();
+ applyColors();
+ renderWebsite();
+ showAdminTab("colors");
+}
+
+function applyColors(){
+ const colors=data.colors;
+ const root=document.documentElement;
+
+ Object.entries(colors).forEach(([key,value])=>{
+  if(!validHex(value))return;
+
+  root.style.setProperty("--"+key,value);
+ });
+
+ root.style.setProperty(
+  "--cardShadow",
+  "0 12px 35px "+hexToRGBA(colors.cardShadow||"#000000",0.38)
+ );
+
+ root.style.setProperty(
+  "--bg1",colors.bg1||defaultData.colors.bg1
+ );
+
+ root.style.setProperty(
+  "--bg2",colors.bg2||defaultData.colors.bg2
+ );
+
+ root.style.setProperty(
+  "--accent",colors.accent||defaultData.colors.accent
+ );
+
+ root.style.setProperty(
+  "--accent2",colors.accent2||defaultData.colors.accent2
+ );
+}
+
+function hexToRGBA(hex,alpha){
+ if(!validHex(hex)){
+  return "rgba(0,0,0,"+alpha+")";
+ }
+
+ const value=hex.substring(1);
+
+ const r=parseInt(value.substring(0,2),16);
+ const g=parseInt(value.substring(2,4),16);
+ const b=parseInt(value.substring(4,6),16);
+
+ return `rgba(${r},${g},${b},${alpha})`;
+}
+
+async function resetColors(){
+ if(!isAdmin)return;
+ if(!confirm("คืนค่าสีเริ่มต้นทั้งหมด?"))return;
+
+ data.colors=structuredClone(defaultData.colors);
+
+ await saveData();
+ applyColors();
+ renderWebsite();
+ showAdminTab("colors");
+}
+
+// ==========================================
+// THEME PRESETS
+// ==========================================
+
+const lightThemes=[
+ {
+  name:"Pink Doll",
+  colors:["#fff0f6","#f4b8d3"],
+  values:{
+   bg1:"#fff0f6",bg2:"#f9dce9",surface:"#ffffff",
+   surface2:"#fce4ef",text:"#59404f",muted:"#987e8e",
+   border:"#edc4d8",accent:"#f4b8d3",accent2:"#d99bc9",
+   btnText:"#542e48",profile:"#f9dce9",
+   initial:"#8c426c",cardShadow:"#b58ca0",heart:"#e979a9"
+  }
+ },
+ {
+  name:"Lavender",
+  colors:["#f2edff","#c7a9ed"],
+  values:{
+   bg1:"#f2edff",bg2:"#e6dafa",surface:"#ffffff",
+   surface2:"#eee5ff",text:"#51465e",muted:"#8f83a0",
+   border:"#d6c5ec",accent:"#c7a9ed",accent2:"#a98ad8",
+   btnText:"#3d2d53",profile:"#e6dafa",
+   initial:"#76539c",cardShadow:"#a99bc1",heart:"#cf83b5"
+  }
+ },
+ {
+  name:"Rose Milk",
+  colors:["#fff1f0","#e8a6a6"],
+  values:{
+   bg1:"#fff1f0",bg2:"#f8dddd",surface:"#ffffff",
+   surface2:"#fae7e5",text:"#5f4246",muted:"#a28486",
+   border:"#eec6c4",accent:"#e8a6a6",accent2:"#d48caa",
+   btnText:"#59373c",profile:"#f7dfdf",
+   initial:"#925d70",cardShadow:"#bba0a0",heart:"#e67c9f"
+  }
+ },
+ {
+  name:"Baby Blue",
+  colors:["#eaf6ff","#a8d6f0"],
+  values:{
+   bg1:"#eaf6ff",bg2:"#d8edfa",surface:"#ffffff",
+   surface2:"#e3f2fc",text:"#344e60",muted:"#7e9bab",
+   border:"#c4e1f0",accent:"#a8d6f0",accent2:"#91bce3",
+   btnText:"#284354",profile:"#d9edf9",
+   initial:"#487a9a",cardShadow:"#a1b9c8",heart:"#db91b5"
+  }
+ },
+ {
+  name:"Cream",
+  colors:["#fff8e9","#dfc69c"],
+  values:{
+   bg1:"#fff8e9",bg2:"#f0e5ce",surface:"#fffdf7",
+   surface2:"#f5ecd9",text:"#574936",muted:"#97866e",
+   border:"#e4d5b8",accent:"#dfc69c",accent2:"#c9ad8b",
+   btnText:"#4e3b27",profile:"#efe3ce",
+   initial:"#836548",cardShadow:"#b9aa91",heart:"#d98b9e"
+  }
+ },
+ {
+  name:"Mint",
+  colors:["#edfff8","#9ed8c4"],
+  values:{
+   bg1:"#edfff8",bg2:"#d9f3e8",surface:"#ffffff",
+   surface2:"#e4f7ef",text:"#35574c",muted:"#83a69a",
+   border:"#c1e6d8",accent:"#9ed8c4",accent2:"#77bda5",
+   btnText:"#294c41",profile:"#dcf3e9",
+   initial:"#488b75",cardShadow:"#a1c8b9",heart:"#e68eaf"
+  }
+ }
+];
+
+const darkThemes=[
+ {
+  name:"Dark Romance",
+  colors:["#171019","#a66a91"],
+  values:{
+   bg1:"#171019",bg2:"#302035",surface:"#211827",
+   surface2:"#35243a",text:"#f8eaf5",muted:"#bba8bd",
+   border:"#684b6d",accent:"#e9a9cf",accent2:"#a879c8",
+   btnText:"#211323",profile:"#38263e",
+   initial:"#f5c6e4",cardShadow:"#000000",heart:"#f28bb9"
+  }
+ },
+ {
+  name:"Black Cherry",
+  colors:["#190d16","#8f3159"],
+  values:{
+   bg1:"#190d16",bg2:"#321522",surface:"#26131f",
+   surface2:"#3b1c2c",text:"#fceaf2",muted:"#c19aa9",
+   border:"#744054",accent:"#d77a9e",accent2:"#8f3159",
+   btnText:"#240e19",profile:"#452338",
+   initial:"#f3b6cc",cardShadow:"#000000",heart:"#ed709e"
+  }
+ },
+ {
+  name:"Purple Goth",
+  colors:["#171225","#8263ba"],
+  values:{
+   bg1:"#171225",bg2:"#29203e",surface:"#211b30",
+   surface2:"#342849",text:"#f2edff",muted:"#b2a6c9",
+   border:"#59477a",accent:"#b59be5",accent2:"#8263ba",
+   btnText:"#241a38",profile:"#392d4e",
+   initial:"#d8c5ff",cardShadow:"#000000",heart:"#ec92c2"
+  }
+ },
+ {
+  name:"Midnight",
+  colors:["#10131e","#6278a8"],
+  values:{
+   bg1:"#10131e",bg2:"#1c263c",surface:"#1b2233",
+   surface2:"#29354b",text:"#eaf0ff",muted:"#a1aec6",
+   border:"#465a79",accent:"#a9bde8",accent2:"#6278a8",
+   btnText:"#1b2941",profile:"#29344d",
+   initial:"#d0ddff",cardShadow:"#000000",heart:"#ec9bc3"
+  }
+ },
+ {
+  name:"Blood Rose",
+  colors:["#1c1014","#a34b5c"],
+  values:{
+   bg1:"#1c1014",bg2:"#371c24",surface:"#28171d",
+   surface2:"#3b222b",text:"#ffedf0",muted:"#c4a0a7",
+   border:"#70404d",accent:"#d88b9a",accent2:"#a34b5c",
+   btnText:"#2e151c",profile:"#492833",
+   initial:"#ffd0d8",cardShadow:"#000000",heart:"#f1799b"
+  }
+ },
+ {
+  name:"Moonlight",
+  colors:["#171923","#a3a5d5"],
+  values:{
+   bg1:"#171923",bg2:"#292c40",surface:"#222536",
+   surface2:"#35384f",text:"#f0f0ff",muted:"#b3b5ce",
+   border:"#5b5e80",accent:"#c2c2ed",accent2:"#898ec5",
+   btnText:"#292b45",profile:"#373a55",
+   initial:"#e1e0ff",cardShadow:"#000000",heart:"#e99ac8"
+  }
+ }
+];
+
+function renderThemes(){
+ const light=document.getElementById("lightThemes");
+ const dark=document.getElementById("darkThemes");
+
+ if(!light||!dark)return;
+
+ function createThemeCard(theme){
+  const button=document.createElement("button");
+  button.className="theme-choice";
+
+  button.innerHTML=`
+   <div class="theme-swatches">
+    <i style="background:${theme.colors[0]}"></i>
+    <i style="background:${theme.colors[1]}"></i>
+   </div>
+   ${escapeHTML(theme.name)}
+  `;
+
+  button.onclick=()=>applyTheme(theme);
+  return button;
+ }
+
+ light.innerHTML="";
+ dark.innerHTML="";
+
+ lightThemes.forEach(theme=>{
+  light.appendChild(createThemeCard(theme));
+ });
+
+ darkThemes.forEach(theme=>{
+  dark.appendChild(createThemeCard(theme));
+ });
+}
+
+async function applyTheme(theme){
+ if(!isAdmin)return;
+
+ data.colors={
+  ...data.colors,
+  ...theme.values
+ };
+
+ await saveData();
+
+ applyColors();
+ renderWebsite();
+
+ // คงหน้า Colors & Themes ไว้หลังเลือกธีม
+ showAdminTab("colors");
+ showToast(theme.name+" theme applied ♡");
+}
+
+// ==========================================
+// BACKUP
+// ==========================================
+
+function exportBackup(){
+ if(!isAdmin)return;
+
+ const backup={
+  app:"Jaoriche Credit Profile",
+  version:1,
+  exportedAt:new Date().toISOString(),
+  data:data
+ };
+
+ const blob=new Blob(
+  [JSON.stringify(backup,null,2)],
+  {type:"application/json"}
+ );
+
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");
+
+ a.href=url;
+ a.download="jaoriche-credit-backup.json";
+ a.click();
+
+ URL.revokeObjectURL(url);
+ showToast("Backup downloaded ♡");
+}
+
+async function restoreBackup(event){
+ if(!isAdmin)return;
+
+ const file=event.target.files?.[0];
+ if(!file)return;
+
+ try{
+  const text=await file.text();
+  const backup=JSON.parse(text);
+
+  const imported=backup.data||backup;
+
+  if(!imported.profile||!Array.isArray(imported.reviews)){
+   throw new Error("รูปแบบไฟล์ไม่ถูกต้อง");
+  }
+
+  if(!confirm("ข้อมูลปัจจุบันจะถูกแทนที่ ต้องการดำเนินการต่อหรือไม่?")){
+   event.target.value="";
+   return;
+  }
+
+  data={
+   ...structuredClone(defaultData),
+   ...imported,
+   profile:{...defaultData.profile,...imported.profile},
+   colors:{...defaultData.colors,...imported.colors},
+   decor:{...defaultData.decor,...imported.decor},
+   music:{...defaultData.music,...imported.music}
+  };
+
+  await dbSave(data);
+
+  renderWebsite();
+  applyColors();
+
+  showToast("Backup restored ♡");
+
+ }catch(error){
+  alert("นำเข้าข้อมูลไม่สำเร็จ: "+error.message);
+ }
+
+ event.target.value="";
+}
+
+// ==========================================
+// RESET
+// ==========================================
+
+async function resetWebsite(){
+ if(!isAdmin)return;
+
+ const confirmText=prompt(
+  'พิมพ์ DELETE เพื่อยืนยันการลบข้อมูลทั้งหมด'
+ );
+
+ if(confirmText!=="DELETE")return;
+
+ data=structuredClone(defaultData);
+
+ try{
+  await dbSave(data);
+
+  localStorage.removeItem("jaoriche_credit_backup");
+
+  // หยุดและล้างเพลงเฉพาะกรณี Reset เว็บไซต์
+  const player=document.getElementById("musicPlayer");
+  player.innerHTML=
+   '<p style="font-size:11px;color:var(--muted)">ยังไม่ได้ตั้งค่าเพลง</p>';
+
+  currentMusicOpen=false;
+  document.getElementById("musicPopup").classList.add("hidden");
+  document.getElementById("vinylButton").classList.remove("playing");
+
+  renderWebsite();
+  applyColors();
+  showAdminTab("profile");
+
+  showToast("Website reset ♡");
+
+ }catch(error){
+  alert("Reset failed");
+ }
+}
+
+// ==========================================
+// START WEBSITE
+// ==========================================
+
+async function startWebsite(){
+ try{
+  await openDatabase();
+ }catch(error){
+  console.error("IndexedDB unavailable:",error);
+ }
+
+ await loadData();
+
+ applyColors();
+ renderWebsite();
+ updateHeartPicker();
+}
+
+startWebsite();
+
+</script>
+</body>
+</html>
